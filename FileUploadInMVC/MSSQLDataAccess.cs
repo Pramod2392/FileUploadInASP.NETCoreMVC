@@ -1,5 +1,6 @@
 ﻿
 using Dapper;
+using FileUploadInMVC.Models;
 using System.Data.SqlClient;
 namespace FileUploadInMVC {
     public class MSSQLDataAccess {
@@ -23,5 +24,21 @@ namespace FileUploadInMVC {
                 return result;
             }
         }
+
+        public async Task<IEnumerable<SelectFilesModel>> GetAllFilesFromDatabaseAsync()
+        {
+            try
+            {
+                using var conn = new SqlConnection(_config.GetConnectionString("SQLDB"));
+                var query = "SELECT * FROM FileUpload";
+                var queryResult = await conn.QueryAsync<SelectFilesModel>(query);
+                return queryResult;
+            }
+            catch (Exception)
+            {
+                return Enumerable.Empty<SelectFilesModel>();
+            }
+        }
+
     }
 }

@@ -16,9 +16,12 @@ namespace FileUploadInMVC.Controllers {
             byte[] fileContent = memoryStream.ToArray();
             await _mSSQLDataAccess.SaveFileToDatabaseAsync(fileContent, SingleFile.FileName);
             _fileModel.fileContent = fileContent;
-            _fileModel.fileName = SingleFile.FileName;
-            _fileModel.file = SingleFile;
+            _fileModel.fileName = SingleFile.FileName;            
             return View("Index", _fileModel);
+        }
+        public async Task<IActionResult> ListFiles() {
+            var queryResult = await _mSSQLDataAccess.GetAllFilesFromDatabaseAsync();
+            return View("Files",queryResult);
         }
     }
 }

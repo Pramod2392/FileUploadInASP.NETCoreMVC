@@ -1,0 +1,32 @@
+﻿@model IEnumerable<SelectFilesModel>
+<div>
+    <h4>List of uploaded files</h4>
+    <table style="width:50%">
+        <tr>
+            <th class="tableHead">File Name</th>
+            <th class="tableHead">Image</th>
+        </tr>
+        @foreach (var file in @Model)
+        {
+            <tr>
+                <td> @file.Name </td>
+                <td>
+                    <img class="imageClass" src="@String.Format("data:image/gif;base64,{0}",Convert.ToBase64String(@file?.Image))"></img>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<style>
+    .imageClass{
+        width:50%; height:50%;        
+    }
+    .tableHead{
+        width:50%;                 
+    }
+    table, th, td {
+        border: 1px solid black;     
+        text-align: center;
+    }
+</style>
+
