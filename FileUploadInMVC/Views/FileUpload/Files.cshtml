@@ -1,32 +1,48 @@
 ﻿@model IEnumerable<SelectFilesModel>
 <div>
+
     <h4>List of uploaded files</h4>
+
     <table style="width:50%">
-        <tr>
+        <tr>            
             <th class="tableHead">File Name</th>
             <th class="tableHead">Image</th>
+            <th class="tableHead">Action</th>
         </tr>
+
         @foreach (var file in @Model)
         {
-            <tr>
+            <tr>                
                 <td> @file.Name </td>
+
                 <td>
                     <img class="imageClass" src="@String.Format("data:image/gif;base64,{0}",Convert.ToBase64String(@file?.Image))"></img>
                 </td>
+
+                <td> @Html.ActionLink("Delete","DeleteButtonHandler","FileUpload",new { Id = @file.Id}) </td>
+
             </tr>
         }
     </table>
 </div>
 <style>
-    .imageClass{
-        width:50%; height:50%;        
+
+    .imageClass
+    { 
+        width:50%;
+        height:50%;
     }
-    .tableHead{
-        width:50%;                 
+
+    .tableHead
+    { 
+        width:50%;
     }
-    table, th, td {
-        border: 1px solid black;     
+
+    table, th, td
+    {
+        border: 1px solid black;
         text-align: center;
     }
+
 </style>
 
